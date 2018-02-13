@@ -14,3 +14,4 @@ available at that date.
 - [ ] Code blocks to have links to the playground?
 - [ ] A COPY button on code blocks
 - [ ] Use https://github.com/mattico/elasticlunr-rs and add a search box.
+- [ ] Code files to be separate from the markdown? See https://github.com/verpeteren/gutenberg-materialize#options-index-page
