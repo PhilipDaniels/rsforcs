@@ -38,7 +38,7 @@ introduction and these sections which constitute things you just have to know:
 * Ownership and borrowing
 * Option and Result
 * String and &str
-* Structs
+* Tuples and Structs
 * Sequential collections: Vec, arrays and slices
 * Associative collections: HashMap and Set
 * Iterators
