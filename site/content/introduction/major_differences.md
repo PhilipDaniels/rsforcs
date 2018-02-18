@@ -79,9 +79,12 @@ byte) and `&str` (a string slice).
 * There is only ever one owner.
 * When the owner goes out of scope, the value is *dropped*.
 
-'Scope' means pretty much what you would expect - you reach the end of a function
+'Scope' means pretty much what you would expect - you reach the end of a function:
 
 ```rs
+fn function_that_takes_ownership_of_string(s: String) {
+    println!("s = {}", s);
+} // s is dropped here.
 ```
 
 or the end of a statement block within a wider piece of code:
@@ -325,7 +328,7 @@ fn merge<'a, T>(a: &'a T, b: &'a T) -> &'a T {
 
 The `'a`, which reads as 'tick a' or 'lifetime a', parameterizes the function in a very similar way
 to the way that a C# generic function is parameterized by a type T. `'a` is very common in Rust
-code, but you can use more descriptive names such as `'buffer' and you can use more than one in a
+code, but you can use more descriptive names such as `'buffer` and you can use more than one in a
 single struct or function signature.
 
 TODO For more information see the section on lifetimes.
