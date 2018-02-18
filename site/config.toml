@@ -7,9 +7,11 @@ description = "Everything necessary for C# programmers to learn Rust."
 compile_sass = true
 
 # Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Gutenberg
 highlight_code = true
+highlight_theme = "monokai"
 
+# Which overall site theme to use (from the themes directory).
+# This site has its own custom theme.
 theme = "rsforcs-theme"
 
 [extra]
