@@ -54,11 +54,24 @@
     }
 
     blockquote {
-      margin: 0;
-      margin-bottom: .85em;
-      padding: 0 15px;
-      color: #858585;
-      border-left: 4px solid #e5e5e5;
+      p {
+        margin: 0px;
+        padding: 0px;
+      }
+      font-style:italic;
+      color: #555555;
+      padding: 0.75em;
+      border-left:8px solid #78C0A8 ;
+      background:#EDEDED;
+      margin-left: 0px;
+    }
+
+    blockquote span {
+      display:block;
+      color:#333333;
+      font-style: normal;
+      font-weight: bold;
+      margin-top:1em;
     }
 
     iframe {
