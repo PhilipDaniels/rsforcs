@@ -97,52 +97,6 @@
       margin-bottom: 0.85em;
     }
   }
-
-  .previous, .next {
-    position: fixed;
-    display: flex;
-    top: 50px;
-    bottom: 0;
-    font-size: 2.5em;
-    color: #ccc;
-    text-decoration: none;
-    text-align: center;
-    margin: 0;
-    max-width: 150px;
-    min-width: 90px;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
-
-    &:hover {
-      color: #333;
-    }
-  }
-
-  .previous {
-    left: $sidebar-width;
-    float: left;
-  }
-
-  .next {
-    // not 0 as it goes over the sidebar otherwise
-    right: 15px;
-    float: right;
-  }
-
-  @include max-screen(1250px) {
-    .previous, .next {
-      position: static;
-      top: auto;
-      display: inline-block;
-      max-width: 49%;
-      width: 49%;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
 }
 
 @include min-screen(600px) {
