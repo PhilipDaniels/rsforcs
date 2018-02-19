@@ -12,7 +12,8 @@ nightly stream. The stable stream consists of a compiler and toolset that is con
 release", i.e. tested and supported. Nightly is literally a nightly build of the latest development
 code with all the latest whizz-bang features, not all of which are complete or fully thought out,
 and may be subject to change before they are stabilized. It's sort of a test-bed for the Rust
-developers to get new features out to the public and get them tested.
+developers to get new features out to the public and get them tested. There is a third stream, beta,
+which is between the two, but this is much less mentioned.
 
 Unfortunately, this leads to some bifurcation in the Rust community, as while most developers are
 using stable, there are quite a few interesting crates and projects that require nightly.
