@@ -6,9 +6,10 @@ available at that date.
 
 
 ## TODO - Content
-- [ ] Define major sections
+- [X] Define major sections
 
 ## TODO - Theming / Site Infrastructure
+- [ ] Improve the structure of the SASS, introduce a colors section.
 - [ ] Google Analytics
 - [ ] Left/right code blocks
 - [ ] Code blocks to have links to the playground?
