@@ -1,5 +1,5 @@
 +++
-title = "Aims, references, the art of learning"
+title = "Aims, references, and the art of learning"
 weight = 10
 +++
 
@@ -117,3 +117,17 @@ invaluable learning resource.
 * The Rust Language Forum
 * Reddit /r/rust
 * Find something Rusty to work on: https://www.rustaceans.org/findwork/
+
+## Contributing to this website
+
+The site is compiled using the [Gutenberg](https://www.getgutenberg.io/) static site generator, with
+a theme defined especially for it. The source code can be found [on
+Github](https://github.com/PhilipDaniels/rsforcs). Development is currently taking place on the
+master branch.
+
+PRs for grammar, spelling, style and content are all welcome. Size does not matter, in fact small
+PRs are much quicker for me to review. A PR to correct a one-word typo is just as welcome as a PR
+that creates an entire page. You don't even need to clone the repository down to your machine to
+make small edits, you can do it directly in the Github website. Small PRs don't need associated
+issues, but if you're thinking of making a more substantial contribution then raise an issue so that
+we have an opportunity to discuss it first.
