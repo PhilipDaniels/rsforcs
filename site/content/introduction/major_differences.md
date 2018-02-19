@@ -1,5 +1,5 @@
 +++
-title = "Major Differences between Rust and C#"
+title = "Major differences between Rust and C#"
 weight = 20
 +++
 

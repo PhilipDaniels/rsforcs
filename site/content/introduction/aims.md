@@ -1,5 +1,5 @@
 +++
-title = "Aims"
+title = "Aims, references, the art of learning"
 weight = 10
 +++
 
