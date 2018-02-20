@@ -57,14 +57,14 @@ In C#, design consists of creating types (usually classes) that encapsulate data
 (properties and methods). Then we compose programs by linking these types together using references
 (embedding a class in another class as a member variable is just another type of linking). It's easy
 to build complex functionality by continuing this process to any degree - "I need an X here? Fine,
-just add another constructor parameter or a property". Dependency injection even lets a library take
-care of constructing our object hierarchies "automatically" for us. This leads to a mental model
-where one can focus on the design of an individual type, and not worry too much about how it will
-eventually fit into the overall program, or even its immediate parents. This is a highly productive
-way of working, and it's all possible because of the existence of the garbage collector, which
-ensures that any objects that are no longer required are deleted. GC means that we don't have to
-think too much about how we create, compose and tear down our data structures. The CLR GC will even
-clean up objects that are linked in cycles.
+just add another constructor parameter or a property". Dependency injection even lets a 'container'
+take care of constructing our object hierarchies "automatically" for us. This leads to a mental
+model where one can focus on the design of an individual type, and not worry too much about how it
+will eventually fit into the overall program, or even its immediate parents. This is a highly
+productive way of working, and it's all possible because of the existence of the garbage collector,
+which ensures that any objects that are no longer required are deleted. GC means that we don't have
+to think too much about how we create, compose and tear down our data structures. The CLR GC will
+even clean up objects that are linked in cycles.
 
 Note that the time of garbage collection in C# is indeterminate - there is no way of knowing when an
 object will be collected. This is why the `IDisposable` interface and the `using` statement exist -
@@ -113,11 +113,10 @@ There are three key differences to note:
 > order of declaration.
 
 Of course, in the same way that not all C# classes need to implement `IDisposable`, not all Rust
-values need to do something when they are dropped. The criterion is the same - if you have some data
+values need to do something when they are dropped<sup>(1)</sup>. The criterion is the same - if you have some data
 or resource that you own and need to clean up, they you need to implement `Drop` (`u8` has no need
-for a Drop method so nothing actually happens when a byte goes out of scope). In Rust, you opt-in to
-a particular behaviour by *implementing a trait*, in this case the `Drop` trait.
-https://doc.rust-lang.org/std/ops/trait.Drop.html A trait is a bit like an interface in C#, and the
+for a `Drop` method so nothing actually happens when a byte goes out of scope). In Rust, you opt-in
+to a particular behaviour by *implementing a trait*, in this case the [Drop trait](https://doc.rust-lang.org/std/ops/trait.Drop.html). A trait is a bit like an interface in C#, and the
 drop trait has only one method, called `Drop`, which you must implement to get all the automatic
 behavior described above.
 
@@ -127,6 +126,10 @@ designer and then the compiler does all the work of inserting the necessary call
 reliant on the users of your type actually calling `Dispose`. The Rust idiom is also easier to
 write, `IDisposable` implementations can get tricky when inheritance is a factor - which is not a
 problem in Rust because Rust does not have inheritance!
+
+(1) Values that aren't droppable are called 'Copy' in rust. They are things like basic numeric types
+such as `u32` which can be copied with a simple copying of bits, and compound structures which
+consist only of Copy types.
 
 ## Ownership, moves and borrowing in Rust
 
@@ -207,7 +210,7 @@ fn take_a_reference(s: &String) {
 }
 ```
 
-To fix, this you need to use the syntax for a mutable reference, `&mut`:
+To fix this you need to use the syntax for a mutable reference, `&mut`:
 
 ```rs
 // The type signature of the function now says "I take a mutable reference to a String".
@@ -244,10 +247,11 @@ reference at the same time, so all those references are guaranteed to see the sa
 as they exist.
 
 You've probably come across restrictions like these before: they are very similar to the semantics
-of C#'s `ReaderWriterLockSlim` class, which allows multiple readers (immutable references in Rust
+of C#'s [ReaderWriterLockSlim](https://docs.microsoft.com/en-gb/dotnet/api/system.threading.readerwriterlockslim?view=netframework-4.7.1) class, which allows multiple readers (immutable references in Rust
 terminology) and one writer (a mutable reference). (Rust has no concept of upgrading a reference
-though.) Database systems such as SQL Server implement similar concepts, though it gets a little
-more complicated because SQL Server tries hard to optimize locking performance https://msdn.microsoft.com/en-us/library/ms186396.aspx
+though.) Database systems such as SQL Server implement [similar concepts](https://msdn.microsoft.com/en-us/library/ms186396.aspx), though it gets a little
+more complicated because SQL Server tries hard to optimize locking performance. See also the
+[Readers-writers problem](https://en.wikipedia.org/wiki/Readers%E2%80%93writers_problem) on Wikipedia.
 
 The restrictions mean:
 
@@ -267,15 +271,15 @@ multi-threaded programs safe in the knowledge that they are free from data races
 
 However, there is a downside - you have to give up your habit of simply slapping object references
 on your classes when you need access to one more piece of data. It's not that it will introduce a
-bug to the Rust code - in fact, it simply won't compile! In other words, while it is fine to create
-a structure like this in the C# world:
+bug to the Rust code - in fact, it probably won't compile! In other words, while it is fine to
+create a structure like this in the C# world:
 
   IMAGE
 
-In Rust, you will need to refactor to produce a DAG (directed acyclic graph) where the ownership of
-each piece of data is explicitly defined in a tree structure with no cycles:
+In Rust, you will need to refactor to produce an *ownership tree* where each chunk of data has a
+definite parent/owner:
 
-  IMAGE
+   IMAGE
 
 Being able to write such structures from the get-go is the hardest thing to learn for a programmer
 coming from C# to Rust. It affects programmers coming from other languages as well, the Rust
@@ -292,11 +296,12 @@ In C#, a dangling reference occurs when a reference is `null` when it shouldn't 
 to the referent generates the dreaded `NullReferenceException`. In low-level languages such as C and
 C++ the problem also exists but behaviour is more erratic - the program may continue to run and
 generate wrong answers, or it may crash. In both cases the cause is the same: we start with a value
-'a' and a reference to it - '&a' - but the value 'a' went away before the reference did. This class
-of errors is often called "use after free" errors.
+`a` and a reference to it - `&a` - but the value `a` went away before the reference did. This class
+of errors is often called "use after free" errors, after the scenarion in `C` where you refer to
+memory after passing a pointer to the `free()` function.
 
-Rust prevents such errors by guaranteeing that the value 'a' **lives for at least as long** as any
-references to it. It's a powerful guarantee, and helps to eliminate an entire class of very frequent
+Rust prevents such errors by guaranteeing that the value `a` **lives for at least as long** as any
+references to it. It's a powerful guarantee, and helps to eliminate this class of very frequent
 bugs. The Rust compiler enforces this guarantee by analysing the lifetimes of your values and the
 references to them. In some common cases, such as inside the body of a function, it is able to do
 this automatically, without any assistance from the programmer. Rust won't allow you to return a
@@ -331,7 +336,7 @@ to the way that a C# generic function is parameterized by a type T. `'a` is very
 code, but you can use more descriptive names such as `'buffer` and you can use more than one in a
 single struct or function signature.
 
-TODO For more information see the section on lifetimes.
+For more information see the section on lifetimes.
 
 ## Rust Enums are far more important than C# enums
 
@@ -361,10 +366,11 @@ pub enum Option<T> {
 
 ## Rust does not have exceptions, it has Result<T,E>
 
-There are no exceptions in Rust. If a function can fail, it can either `panic()` (bad design) or
-return a type called `Result<T,E>`. Think of `Result<T,E>` as basically working the same way as
-`Option<T>` but allowing a second parameter which is the error condition instead of the constant
-`None`. E might be an integer error code, a string, or some other specialized value.
+There are no exceptions in Rust. If a function can fail, it can either `panic()` (which be unusual
+and probably bad design) or return a type called `Result<T,E>`. Think of `Result<T,E>` as basically
+working the same way as `Option<T>` but allowing a second parameter which is the error condition
+instead of the constant `None`. E might be an integer error code, a string, or some other
+specialized value.
 
 Results are almost as common as Options. They are also a type of enum. Here is the actual definition
 from the standard library:
