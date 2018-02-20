@@ -274,12 +274,12 @@ on your classes when you need access to one more piece of data. It's not that it
 bug to the Rust code - in fact, it probably won't compile! In other words, while it is fine to
 create a structure like this in the C# world:
 
-  IMAGE
+![C# Structure](./cs_forest.png)
 
 In Rust, you will need to refactor to produce an *ownership tree* where each chunk of data has a
 definite parent/owner:
 
-   IMAGE
+![Rust Structure](./rust_tree.png)
 
 Being able to write such structures from the get-go is the hardest thing to learn for a programmer
 coming from C# to Rust. It affects programmers coming from other languages as well, the Rust
