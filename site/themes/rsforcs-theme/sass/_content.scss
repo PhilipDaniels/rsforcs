@@ -43,7 +43,7 @@
       border: none;
     }
 
-    // This is used for code highlighting.
+    // This is used for code highlighting blocks, i.e. within ```...``` blocks.
     pre {
       padding: 0.75rem;
       font-family: Consolas, "Source Code Pro", "Bitstream Vera Sans Mono", "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace;
@@ -52,6 +52,12 @@
       span {
         white-space: pre-wrap;
       }
+    }
+
+    // This is used for in-line code highlighting, i.e. within `foo` quotes.
+    code {
+      color: black;
+      font-weight: bold;
     }
 
     blockquote {
