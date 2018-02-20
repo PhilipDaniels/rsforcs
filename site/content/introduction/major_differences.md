@@ -35,7 +35,7 @@ have good cold-start performance.
 > The ability to write high-level C#-like programs that have native performance is one of Rust's
 > most attractive features.
 
-Rust executables are statically linked (1) - this means that the exe contains all the code and
+Rust executables are statically linked<sup>(1)</sup> - this means that the exe contains all the code and
 libraries necessary for it to execute, so you have true xcopy deployment - you can simply copy the
 exe to another machine and it will run. There is no equivalent to "you must install the .Net
 Framework 4.6.2 in order to run this program." The downside to AOT compilation is that if you want
