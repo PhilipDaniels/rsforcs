@@ -21,8 +21,21 @@ of the item:
 The Rust equivalent of `Where` is [filter](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter):
 
 ```cs
-var nums = new int[] { 1, 2, 3, 4 };
-var result = nums.Where(x => x > 2).ToList();
+[Test]
+public void Where1_Ints()
+{
+    var source = new List<int> { 1, 2, 3, 4 };
+    var result = source.Where(x => x > 2).ToList();
+    CollectionAssert.AreEqual(result, new List<int> { 3, 4 });
+}
+
+[Test]
+public void Where1_Strings()
+{
+    var source = new List<string> { "red", "green", "blue", "white", "yellow" };
+    var result = source.Where(x => x.Contains("w")).ToList();
+    CollectionAssert.AreEqual(result, new List<String> { "white", "yellow" });
+}
 ```
 
 ```rs
