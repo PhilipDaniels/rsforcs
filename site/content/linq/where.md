@@ -26,7 +26,6 @@ this way for efficiency, if you want a copy, say you need to build a new collect
 is separate from the original one, you must clone the elements, and Rust wants you to do that
 explicitly.
 
-
 ```cs
 [Test]
 public void Where1_Ints()
@@ -119,7 +118,9 @@ public void Where2_Ints()
 
 The equivalent Rust functionality is obtained by passing the iterator through the
 [enumerate](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.enumerate) method, which
-returns a tuple `(index, item)`:
+returns a tuple `(index, item)`.
+
+Note that both languages enumerate from 0.
 
 ```rs
 #[test]
@@ -179,6 +180,7 @@ fn where2_strings() {
     assert_eq!(result, vec!["red", "white", "yellow"]);
 }
 ```
+
 ## See also
 
 The Clone trait.
