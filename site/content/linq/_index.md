@@ -1,5 +1,5 @@
 +++
-title = "LINQ"
+title = "LINQ, Iterables and more"
 weight = 100
 sort_by = "weight"
 +++
@@ -20,6 +20,13 @@ The C# examples are written as unit tests using Framework 4.7.1 and the
 [NUnit](https://github.com/nunit/docs/wiki/NUnit-Documentation) testing framework. The full set of
 examples is available as a VS2017 solution in this website's [Github
 repo](https://github.com/PhilipDaniels/rsforcs).
+
+Ensure we cover MoreLinq and all the Rust iter methods, and probably itertools too.
+
+The Empty page has a nice description of why there are custom structs rather than IEnumerable<T>
+returned by everything.
+
+BIG TABLE HERE
 
 ## See also
 
