@@ -46,4 +46,4 @@ struct to represent the sequence.
 
 ## See Also
 
-Ranges are used extensively to generate [slices]().
+Ranges are used extensively to generate slices.
