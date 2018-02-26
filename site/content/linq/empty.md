@@ -3,7 +3,7 @@ title = "Empty"
 weight = 96
 +++
 
-## Overloads
+## Description
 
 [Empty](https://docs.microsoft.com/en-gb/dotnet/api/system.linq.enumerable.empty?view=netframework-4.7.1#System_Linq_Enumerable_Empty)
 is used to generate an empty sequence of the appropriate type. There is only 1 overload, and it is a

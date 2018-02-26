@@ -3,7 +3,7 @@ title = "Select"
 weight = 90
 +++
 
-## Overloads
+## Description
 
 [Select](https://docs.microsoft.com/en-gb/dotnet/api/system.linq.enumerable.select?view=netframework-4.7.1#System_Linq_Enumerable_select)
 is used to project each member of a sequence into a new form. There are two overloads of the `Select` method,

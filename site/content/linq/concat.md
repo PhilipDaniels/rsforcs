@@ -3,7 +3,7 @@ title = "Concat"
 weight = 99
 +++
 
-## Overloads
+## Description
 
 [Concat](https://docs.microsoft.com/en-gb/dotnet/api/system.linq.enumerable.concat?view=netframework-4.7.1#System_Linq_Enumerable_Concat)
 is used to join two sequences together. It returns all the values from the first sequence, then the

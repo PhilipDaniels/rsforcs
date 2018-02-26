@@ -4,7 +4,7 @@ weight = 100
 sort_by = "weight"
 +++
 
-## Overloads
+## Description
 
 [Where](https://docs.microsoft.com/en-gb/dotnet/api/system.linq.enumerable.where?view=netframework-4.7.1#System_Linq_Enumerable_Where)
 is used to filter a sequence based on a predicate. There are two overloads of the `Where` method,

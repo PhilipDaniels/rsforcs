@@ -3,7 +3,7 @@ title = "Repeat"
 weight = 97
 +++
 
-## Overloads
+## Description
 
 [Repeat](https://docs.microsoft.com/en-gb/dotnet/api/system.linq.enumerable.repeat?view=netframework-4.7.1#System_Linq_Enumerable_Repeat)
 is used to yield a specific item N times. There is only 1 overload, and it is a simple static method

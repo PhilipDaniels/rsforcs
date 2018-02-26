@@ -3,7 +3,7 @@ title = "Count and LongCount"
 weight = 98
 +++
 
-## Overloads
+## Description
 
 [Count](https://docs.microsoft.com/en-gb/dotnet/api/system.linq.enumerable.count?view=netframework-4.7.1#System_Linq_Enumerable_Count)
 and

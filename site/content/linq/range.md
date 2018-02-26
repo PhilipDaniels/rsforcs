@@ -3,7 +3,7 @@ title = "Range"
 weight = 95
 +++
 
-## Overloads
+## Description
 
 [Range](https://docs.microsoft.com/en-gb/dotnet/api/system.linq.enumerable.range?view=netframework-4.7.1#System_Linq_Enumerable_Range)
 is used to generate a sequence of integer numbers, starting at a particular number and continuing
