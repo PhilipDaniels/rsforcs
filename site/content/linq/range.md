@@ -20,7 +20,7 @@ Usage is trivial:
 ```
 
 The equivalent in Rust is provided most succintly by the range operator `..`. This is typically used
-with for loops:
+with for loops. Here is the Rust equivalent of the classic C `for` loop:
 
 ```rs
 for i in 0..10 {
