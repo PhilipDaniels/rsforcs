@@ -11,6 +11,5 @@ mod tests {
         let source = vec![10, 20, 30, 40];
         assert_eq!(true, source.iter().all(|&x| x > 0));
         assert_eq!(false, source.iter().all(|&x| x % 3 == 0));
-
     }
 }
