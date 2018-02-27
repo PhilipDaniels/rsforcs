@@ -1,3 +1,4 @@
+pub mod chain_tests;
 pub mod count_tests;
 pub mod empty_tests;
 pub mod repeat_tests;

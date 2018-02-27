@@ -15,27 +15,24 @@ There is only 1 overload:
 public static IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second);
 ```
 
-In C# the overload of `Count` which does not take a predicate is optimized when the underlying
-collection type is an
-[ICollection&lt;T&gt;](https://docs.microsoft.com/en-gb/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.7.1),
-because this interface provides a
-[Count](https://docs.microsoft.com/en-gb/dotnet/api/system.collections.generic.icollection-1.count?view=netframework-4.7.1)
-property which can return the size of the collection in constant time. Since this is the most
-commonly used overload, and the most common types of sequences are arrays and lists which both
-implement `ICollection<T>`, in practice most calls to `Count` in the C# world are very fast.
+Usage is very simple:
 
 ```cs
-public static int Count<TSource>(this IEnumerable<TSource> source);
-public static int Count<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
-public static long LongCount<TSource>(this IEnumerable<TSource> source);
-public static long LongCount<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 ```
 
-Usage is trivial:
+In Rust, the equivalent is the
+[chain](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.chain) method.
+The behaviour is exactly the same:
 
-```cs
+```rs
+ #[test]
+fn chain_ints() {
+    // Using into_iter() to avoid having to call filter_map to
+    // get a Vec<i32> instead of a Vec<&i32>.
+    let v1 = vec![10, 20].into_iter();
+    let v2 = vec![30, 40].into_iter();
+    let result : Vec<i32> = v1.chain(v2).collect();
+    assert_eq!(result, vec![10, 20, 30, 40]);
+}
 ```
-
-
-### See Also

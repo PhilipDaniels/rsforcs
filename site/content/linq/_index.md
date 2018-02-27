@@ -26,6 +26,8 @@ Ensure we cover MoreLinq and all the Rust iter methods, and probably itertools t
 The Empty page has a nice description of why there are custom structs rather than IEnumerable<T>
 returned by everything.
 
+TODO: Writing your own iterators. Sequence of random numbers. Turn a single item into an iterator.
+
 BIG TABLE HERE
 
 ## See also
