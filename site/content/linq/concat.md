@@ -36,3 +36,16 @@ fn chain_ints() {
     assert_eq!(result, vec![10, 20, 30, 40]);
 }
 ```
+
+If you want to insert a single item into a `chain`, you can use the
+[once](https://doc.rust-lang.org/std/iter/fn.once.html) function which will turn an item into an
+iterator which yields that item just once and then terminates. An example taken directly from the
+help above:
+
+```rs
+use std::iter;
+
+let mut one = iter::once(1);
+assert_eq!(Some(1), one.next());
+assert_eq!(None, one.next());
+```
