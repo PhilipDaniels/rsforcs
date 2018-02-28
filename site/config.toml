@@ -8,7 +8,7 @@ compile_sass = true
 
 # Whether to do syntax highlighting
 highlight_code = true
-highlight_theme = "solarized-dark"
+highlight_theme = "cheerfully-light"
 
 # Which overall site theme to use (from the themes directory).
 # This site has its own custom theme.
