@@ -22,7 +22,7 @@ available at that date.
 ## Pending material
 #### Build
 This doesn't handle code coverage but I always do 'watchexec -e rs "cargo test"'.
-
+Actually add some filter examples to the LINQ sections.
 
 #### Performance
 [profile.release]
