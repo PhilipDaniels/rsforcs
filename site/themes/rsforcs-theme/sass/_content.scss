@@ -50,6 +50,7 @@ $code-fonts: Consolas, "Source Code Pro", "Bitstream Vera Sans Mono", "Ubuntu Mo
       padding: 0.75rem;
       font-family: $code-fonts;
       font-size: small;
+      border: 1px solid #8f8f8f;
 
       span {
         white-space: pre-wrap;
