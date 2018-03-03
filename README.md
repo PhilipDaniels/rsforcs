@@ -1,9 +1,7 @@
 # rsforcs
 A guide to Rust for C# programmers
 
-As of 2018-02-12, builds using Gutenberg v0.3.0, the latest version
-available at that date.
-
+Builds using Gutenberg.
 
 ## TODO - Content
 - [X] Define major sections
@@ -36,10 +34,9 @@ codegen-units = 1
 [build]
 rustflags = ["-C",  "target-cpu=native"]
 
-#### Syntax
-Syntax
-iter: I           - immutable moved argument
-mut iter: I     - mutable moved argument
+#### Strings
+write and format and println must take a literal because they check the format string at compile
+time
 
 
 #### Blog Improvements
