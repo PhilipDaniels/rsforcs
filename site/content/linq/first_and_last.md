@@ -80,6 +80,8 @@ Simply replace the calls to `next` above with calls to
 ## Reducing verbosity by writing an iterator adapter
 
 TODO Can we do this better? It would be nice to automatically deref the thing if it is a reference.
+But it is probably not possible, in fact, this is exactly how built-in adapters such as
+[min](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.min) work!
 
 ```rs
 trait FirstIteratorAdapter : Iterator {

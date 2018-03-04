@@ -12,6 +12,7 @@ Builds using Gutenberg.
 - [ ] Left/right code blocks
 - [ ] Code blocks to have links to the playground?
 - [ ] A COPY button on code blocks
+- [ ] Expand/Contract buttons for the TOC.
 - [ ] Use https://github.com/mattico/elasticlunr-rs and add a search box.
 - [ ] Code files to be separate from the markdown? See https://github.com/verpeteren/gutenberg-materialize#options-index-page
 - [ ] Very nice code samples: https://www.fpcomplete.com/blog/2017/07/iterators-streams-rust-haskell
