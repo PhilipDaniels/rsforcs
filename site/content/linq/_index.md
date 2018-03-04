@@ -26,11 +26,11 @@ Ensure we cover MoreLinq and all the Rust iter methods, and probably itertools t
 The Empty page has a nice description of why there are custom structs rather than `IEnumerable<T>`
 returned by everything.
 
-Sematics         | Expression        | Iterator       | for loop
---------         | ----------        | --------       | --------
-move             | `let a = b;`      | `.into_iter()` | `for x in collection`
-read-only borrow | `let a = &b;`     | `.iter()`      | `for x in &collection`
-mutable borrow   | `let a = &mut b;` | `.iter_mut()`  | `for x in &mut collection`
+| Semantics        | Expression        | Iterator over type `T`         | for loop                   |
+| ---------------- | ----------------- | ------------------------------ | -------------------------- |
+| move             | `let a = b;`      | `.into_iter()`, yields `T`     | `for x in collection`      |
+| read-only borrow | `let a = &b;`     | `.iter()`, yields `&T`         | `for x in &collection`     |
+| mutable borrow   | `let a = &mut b;` | `.iter_mut()`, yields `&mut T` | `for x in &mut collection` |
 
 Collections and other classes may implement one or more of the Iterator functions, as appropriate.
 The freaky thing is that the default for-loop does move semantics rather than borrow. This means
@@ -44,4 +44,5 @@ BIG TABLE HERE
 
 ## See also
 For loops
-Writing your own custom iterator (a sequence of random numbers).
+Writing your own custom iterat
+or (a sequence of random numbers).
