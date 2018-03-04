@@ -50,6 +50,9 @@ So to avoid removing the elements from a vector, just iterate over a reference t
 instead using `for x in &collection`. If you want to change the elements as you go, use the `for x
  in &mut collection` form.
 
+If you implement your own custom collections you can choose which Iterator functions are appropriate
+to implement.
+
 I would like to make another important distinction at this point. In C#, if you have a collection
 of elements of type `T`, the LINQ methods will be dealing with `Ts`. In Rust, this is only the 
 case if you called `into_iter` to get an [IntoIterator](https://doc.rust-lang.org/std/iter/trait.IntoIterator.html). 
@@ -61,42 +64,35 @@ at the above table and realise that Rust is giving you the flexibility to iterat
 optimal way. That said, it does make some of the Rust equivalents more verbose than their C#
 counterparts. Pattern matching can be used to alleviate this to some extent.
 
+There is much more on this in the page on `for` loops, and I also explain what the
+`for &x in collection` syntax means.
+
 ## About the samples
 
-Most of the examples in this section use `iter` rather than `into_iter` as I feel this is more usual.
-
-All Linq examples should be self contained. I will often call `ToList()` or `collect()` to ensure
-the enumerable is evaluated, to aid in debugging and display of the type.
-
-In Rust, we usually get an iterator by calling the `iter` method.
+Most of the examples in this section use `iter` rather than `into_iter` as I feel this is more
+usual. Changing the code samples to user `iter_mut` or `into_iter` is a useful exercise.
 
 There are usually two sets of examples: one against ints, and one against strings. The first
 is an exemplar of a value type in C#, and the second a reference type.
 
 I tend to use vecs rather than arrays or slices, but the examples all equally to all those types.
 
+Rust iterables are lazy, just like C# LINQ expressions. In C# you could call `ToList()` to ensure
+the iterable is evaluated, in Rust the equivalent is calling `collect()`.
+
 The C# examples are written as unit tests using Framework 4.7.1 and the
 [NUnit](https://github.com/nunit/docs/wiki/NUnit-Documentation) testing framework. The full set of
 examples is available as a VS2017 solution in this website's [Github
 repo](https://github.com/PhilipDaniels/rsforcs).
 
+## TODO
 Ensure we cover MoreLinq and all the Rust iter methods, and probably itertools too.
 
 The Empty page has a nice description of why there are custom structs rather than `IEnumerable<T>`
 returned by everything.
 
-
-Collections and other classes may implement one or more of the Iterator functions, as appropriate.
-The freaky thing is that the default for-loop does move semantics rather than borrow. This means
-you can consume collections by iterating them! Of course, the compiler will give an error if this is
-a problem for your program.
-
-Q: what is `for &x in &collection`? A: The `&x` is a pattern de-referencing the reference that is
-returned by the for loop.
-
-BIG TABLE HERE
+Add a big table showing all the function equivalencies, with lots of links.
 
 ## See also
 For loops
-Writing your own custom iterat
-or (a sequence of random numbers).
+Writing your own custom iterator (e.g. a sequence of random numbers).
