@@ -22,7 +22,8 @@ Usage is trivial:
 ```cs
 ```
 
-The equivalent in Rust is the [empty](https://doc.rust-lang.org/std/iter/fn.empty.html) function from [std::iter](https://doc.rust-lang.org/std/iter/index.html):
+There is no direct equivalent in Rust. The easiest way to get the equivalent functionality is to
+write an iterator adapter (See [single](./linq/single.md) for an in-depth explanation of this code).
 
 ```rs
 use std::iter;
