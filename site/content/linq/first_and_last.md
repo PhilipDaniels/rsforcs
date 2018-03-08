@@ -79,9 +79,11 @@ Simply replace the calls to `next` above with calls to
 
 ## Reducing verbosity by writing an iterator adapter
 
-TODO Can we do this better? It would be nice to automatically deref the thing if it is a reference.
-But it is probably not possible, in fact, this is exactly how built-in adapters such as
-[min](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.min) work!
+You may find the above calls to `next().unwrap_or(&...)` a little verbose. We can get something more
+directly equivalent to the C# version by writing what is known as an *iterator adapter*. An iterator
+adapter is, essentially, a way of adding an extension method to the `Iterator` trait so that you can
+call it like one of the built in methods. There is a more detailed explanation on the
+[single](./linq/single.md) page, but here is the implementation of `first_or_default`.
 
 ```rs
 trait FirstIteratorAdapter : Iterator {
@@ -105,8 +107,11 @@ fn first_ints_using_iterator_adapter() {
 }
 ```
 
+The only slight difference remaining is the references, but this is normal for Rust: remember that
+the type of items in the collection may be very expensive to copy, so Rust defaults to using
+references on the basis of "zero-overhead" abstractions. This is exactly how built-in adapters such
+as [min](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.min) work.
+
 ## See Also
 
-```txt
-[single](./linq/single.md) is a little trickier and has its own page.
-```
+Traits
