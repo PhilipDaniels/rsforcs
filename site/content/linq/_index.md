@@ -105,6 +105,8 @@ returned by everything.
 
 Add a big table showing all the function equivalencies, with lots of links.
 
+DefaultIfEmpty is only started. Do not know how to write an iterator adapter.
+
 ## See also
 For loops
 Writing your own custom iterator (e.g. a sequence of random numbers).
