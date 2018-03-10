@@ -81,7 +81,21 @@ HashSet internally.
 
 ## In Rust, second overload
 
-The second C# overload takes a custom comparer: a predicate that returns true when the two values it
-is passed are considered equal.
+The second C# overload takes a custom comparer: a class that places two values into an ordering
+relationship (less than, equal, greater than). Now is not the time to get into the complexities of
+what it means for something to be equal in .Net, safe to say this overload is typically used when
+you want to transform the values in the sequence in some way before testing them for equality. You
+might want to extract a sub-value, for example you might want to compare `Car` objects by
+`Car.EngineSize`, or you might want to transform the entire value. Comparing strings
+case-insensitively is a classic example. Itertools has
+[unique_by](https://docs.rs/itertools/0.7.7/itertools/trait.Itertools.html#method.unique_by) for
+just this scenario:
 
-
+```rs
+#[test]
+fn itertools_unique_by() {
+    let source = vec!["hello", "world", "HELLO", "Rust", "rust"];
+    let result : Vec<&'static str> = source.into_iter().unique_by(|s| s.to_lowercase()).collect();
+    assert_eq!(result, vec!["hello", "world", "Rust"]);
+}
+```
