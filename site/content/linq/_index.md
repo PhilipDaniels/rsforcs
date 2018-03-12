@@ -40,11 +40,11 @@ expressions, for loops, and iterator methods. Once you memorise these iteration 
 easier in Rust!
 
 
-Semantics        | Expression        | for loop                  |Iterator over type `T`
----------------- | ----------------- | --------------------------|----------------------
-move             | `let a = b;`      | `for x in collection`     |`.into_iter()`, yields `T`
-read-only borrow | `let a = &b;`     | `for x in &collection`    |`.iter()`, yields `&T`
-mutable borrow   | `let a = &mut b;` | `for x in &mut collection`|`.iter_mut()`, yields `&mut T`
+Semantics        | Expression        | for loop            | Equivalent IntoIterator call | Iterator over type `T`
+---------------- | ----------------- | --------------------| ---------------------------- | ----------------------
+move             | `let a = b;`      | `for x in coll`     | `coll.into_iter()`           |  no equivalent available
+read-only borrow | `let a = &b;`     | `for x in &coll`    | `(&coll).into_iter()`        | `.iter()`, yields `&T`
+mutable borrow   | `let a = &mut b;` | `for x in &mut coll`| `(&mut coll).into_iter()`    | `.iter_mut()`, yields `&mut T`
 
 So to avoid removing the elements from a vector, just iterate over a reference to the vector
 instead using `for x in &collection`. If you want to change the elements as you go, use the `for x
