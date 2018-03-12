@@ -110,3 +110,7 @@ DefaultIfEmpty is only started. Do not know how to write an iterator adapter.
 ## See also
 For loops
 Writing your own custom iterator (e.g. a sequence of random numbers).
+
+Most of these examples assume linear sequences (lists, arrays, vectors). If you have HashSets or
+other types available you might find implementations of the methods available directly, HashSet has
+`union` for example.
