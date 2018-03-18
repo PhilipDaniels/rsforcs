@@ -20,14 +20,15 @@ loop in Rust
 
 ```rs
 for x in collection {
-...
+    ...
 }
 ```
 
 Is **not** directly equivalent to the C# formulation:
 
 ```cs
-foreach x in collection {
+foreach (var x in collection) {
+    ...
 }
 ```
 
