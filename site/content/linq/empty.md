@@ -31,8 +31,7 @@ fn empty() {
 ```
 
 Note that because `empty` has no parameters Rust is not able to infer its type, so we have to help
-it out by specifying `::<i32>`. Alternatively, you can specify the type of the iterator that the
-function returns:
+it out by specifying `::<i32>`. Alternatively, you can specify the type in the `let` statement:
 
 ```rs
 use std::iter::{self, Empty};
@@ -49,7 +48,7 @@ But you must do one or the other.
 This example shows one of the interesting differences between LINQ and Rust's iterators: in C#
 pretty much everything is an `IEnumerable<T>`, whereas in Rust each iterator method tends to return
 its own custom struct type which contains all the state needed to implement that specific iterator
-type. In the case above, the custom structure is the `Empty<T>`. The `iter` module contains a
+type. In the case above, the custom structure is the `Empty<i32>`. The `iter` module contains a
 [summary](https://doc.rust-lang.org/std/iter/index.html#structs) of all those structure types. This
 difference can make the Rust iterator function signatures much harder to read than the equivalent
 LINQ ones at first sight, but if you start by assuming that the functions all return something which

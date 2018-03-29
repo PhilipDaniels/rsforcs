@@ -57,7 +57,7 @@ but you can get the same functionality by first reversing your iterator using
 [rev](https://doc.rust-lang.org/core/iter/trait.Iterator.html#method.rev).
 
 Rust's fold is the exact equivalent of the second `Aggregate` overload. Let's show that first. The
-classic examples is to implement `sum` in terms of `fold`, but since that is the demo in the
+classic example is to implement `sum` in terms of `fold`, but since that is the demo in the
 official Rust documentation, let's try something a little more elaborate (but still easy):
 
 ```rs

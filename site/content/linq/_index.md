@@ -4,6 +4,14 @@ weight = 100
 sort_by = "weight"
 +++
 
+Things that need adapters:
+  single is supposed to have the definitive explanation
+  first and last
+  intersect
+  union
+  
+  
+
 ## Intro to LINQ
 
 This section contains Rust equivalents of all the LINQ operators. LINQ is fundamentally about

@@ -70,7 +70,8 @@ fn first_ints() {
 ```
 
 As the comments note, this is not as elegant as the C# version due to `iter` producing `&T` rather
-than `T` elements.
+than `T` elements. If you can consume the source then you can use `into_iter` to yield `Ts` rather
+than `&Ts`.
 
 ## Rust equivalent of Last
 

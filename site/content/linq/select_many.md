@@ -56,7 +56,7 @@ Surprisingly, Rust has a direct equivalent called
 [flatmap](https://doc.rust-lang.org/core/iter/trait.Iterator.html#method.flat_map). Actually it's
 not *that* surprising because this is a common method/pattern in functional programming.
 
-Let's write a Rust equivalents of the File/Lines example.
+Let's write Rust equivalents of the File/Lines example.
 
 ## With a for loop
 
@@ -143,9 +143,8 @@ error[E0597]: `file` does not live long enough
 
 Basically this error is saying that the `map` closure borrows the `file` value from the surrounding
 scope. That borrow only exists to the end of the `map` closure, but it needs to persist until the
-`collect` can run. The easy fix is just to move the `file` into the closure.
-
-So it is the `file` which is being moved, not the `line`!
+`collect` can run. The easy fix is just to move the `file` into the closure. So it is the `file` which
+is being moved, not the `line`!
 
 If you get stuck with what the final closure should be returning, one trick is to get the compiler
 to help you out. Just return some dumb data:
