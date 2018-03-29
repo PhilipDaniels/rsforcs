@@ -30,6 +30,8 @@ pub trait LinqIteratorExtensions : Iterator {
     fn single_or_else<F>(&mut self, f: F) -> Self::Item
         where F: FnOnce() -> Self::Item
     {
+        // We could change this to `self.single_or(f())`, but that would mean the function
+        // was always called, whether or not it needed to be.
         match self.next() {
             None => f(),
             Some(x) => match self.next() {
@@ -42,13 +44,7 @@ pub trait LinqIteratorExtensions : Iterator {
     fn single_or_default(&mut self) -> Self::Item
         where Self::Item: Default
     {
-        match self.next() {
-            None => Default::default(),
-            Some(x) => match self.next() {
-                None => x,
-                Some(_) => Default::default(),
-            }
-        }
+        self.single_or(Default::default())
     }
 
 //    fn in_range<T>(self, r: Range<T>) -> InRange<Self>
