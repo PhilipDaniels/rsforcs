@@ -47,6 +47,23 @@ pub trait LinqIteratorExtensions : Iterator {
         self.single_or(Default::default())
     }
 
+    fn first_or(&mut self, default: Self::Item) -> Self::Item {
+        self.next().unwrap_or(default)
+    }
+
+    fn first_or_else<F>(&mut self, f: F) -> Self::Item
+        where F: FnOnce() -> Self::Item
+    {
+        self.next().unwrap_or_else(f)
+    }
+
+    fn first_or_default(&mut self) -> Self::Item
+        where Self::Item: Default
+    {
+        self.first_or(Default::default())
+    }
+
+
 //    fn in_range<T>(self, r: Range<T>) -> InRange<Self>
 //        where Self: Iterator<Item = T> + Sized
 //    {
@@ -194,6 +211,64 @@ mod tests {
         let actual = (0..3).single_or_default();
         assert_eq!(actual, 0);
     }
+
+    #[test]
+    fn first_or_for_empty_sequence_returns_default() {
+        assert_eq!(empty::<i32>().first_or(42), 42);
+    }
+
+    #[test]
+    fn first_or_for_singleton_sequence_returns_first_value_from_sequence() {
+        assert_eq!(once(12).first_or(42), 12);
+    }
+
+    #[test]
+    fn first_or_for_sequence_of_length_two_or_more_returns_first_value_from_sequence() {
+        let actual = (1..3).first_or(42);
+        assert_eq!(actual, 1);
+
+        let actual = (1..4).first_or(42);
+        assert_eq!(actual, 1);
+    }
+
+    #[test]
+    fn first_or_else_for_empty_sequence_returns_default() {
+        assert_eq!(empty::<i32>().first_or_else(default_generator), 130);
+    }
+
+    #[test]
+    fn first_or_else_for_singleton_sequence_returns_first_value_from_sequence() {
+        assert_eq!(once(12).first_or_else(default_generator), 12);
+    }
+
+    #[test]
+    fn first_or_else_for_sequence_of_length_two_or_more_returns_first_value_from_sequence() {
+        let actual = (1..3).first_or_else(default_generator);
+        assert_eq!(actual, 1);
+
+        let actual = (1..4).first_or_else(default_generator);
+        assert_eq!(actual, 1);
+    }
+
+    #[test]
+    fn first_or_default_for_empty_sequence_returns_default() {
+        assert_eq!(empty::<i32>().first_or_default(), 0);
+    }
+
+    #[test]
+    fn first_or_default_for_singleton_sequence_returns_first_value_from_sequence() {
+        assert_eq!(once(12).first_or_default(), 12);
+    }
+
+    #[test]
+    fn first_or_default_for_sequence_of_length_two_or_more_returns_first_value_from_sequence() {
+        let actual = (1..3).first_or_default();
+        assert_eq!(actual, 1);
+
+        let actual = (1..4).first_or_default();
+        assert_eq!(actual, 1);
+    }
+
 
 //    #[test]
 //    fn in_range_works() {
