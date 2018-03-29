@@ -5,7 +5,7 @@ sort_by = "weight"
 +++
 
 Things that need adapters:
-  single is supposed to have the definitive explanation
+  single is supposed to have the definitive explanation - CODED!
   first and last
   intersect
   union

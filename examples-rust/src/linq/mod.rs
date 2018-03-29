@@ -7,3 +7,4 @@ pub mod repeat_tests;
 pub mod select_tests;
 pub mod single_tests;
 pub mod where_tests;
+pub mod linq_adapters;
