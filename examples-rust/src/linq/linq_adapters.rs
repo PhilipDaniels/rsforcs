@@ -3,10 +3,14 @@
 /// Type 2 - an adapter that returns a single value of the same type as the iterator
 /// Type 3 - an adapter that returns another iterator.
 
+use std::hash;
+use std::collections::HashSet;
+
 // Step 1: Define a trait. The trait should extend Iterator so that if we
 // pass a `LinqIteratorExtensions` trait object to a function it will have
 // all the standard Iterator methods.
 pub trait LinqIteratorExtensions : Iterator {
+    #[inline]
     fn single(&mut self) -> Option<Self::Item> {
         match self.next() {
             None => None,
@@ -17,6 +21,7 @@ pub trait LinqIteratorExtensions : Iterator {
         }
     }
 
+    #[inline]
     fn single_or(&mut self, default: Self::Item) -> Self::Item {
         match self.next() {
             None => default,
@@ -27,6 +32,7 @@ pub trait LinqIteratorExtensions : Iterator {
         }
     }
 
+    #[inline]
     fn single_or_else<F>(&mut self, f: F) -> Self::Item
         where F: FnOnce() -> Self::Item
     {
@@ -41,22 +47,26 @@ pub trait LinqIteratorExtensions : Iterator {
         }
     }
 
+    #[inline]
     fn single_or_default(&mut self) -> Self::Item
         where Self::Item: Default
     {
         self.single_or(Default::default())
     }
 
+    #[inline]
     fn first_or(&mut self, default: Self::Item) -> Self::Item {
         self.next().unwrap_or(default)
     }
 
+    #[inline]
     fn first_or_else<F>(&mut self, f: F) -> Self::Item
         where F: FnOnce() -> Self::Item
     {
         self.next().unwrap_or_else(f)
     }
 
+    #[inline]
     fn first_or_default(&mut self) -> Self::Item
         where Self::Item: Default
     {
@@ -64,11 +74,18 @@ pub trait LinqIteratorExtensions : Iterator {
     }
 
 
-//    fn in_range<T>(self, r: Range<T>) -> InRange<Self>
-//        where Self: Iterator<Item = T> + Sized
-//    {
-//        InRange { iter: self, r, have_skipped: false }
-//    }
+    // Here we get into adapters that need a struct.
+
+    // Because we use IntoIterator we can pass anything that can be converted into an Iterator,
+    // not just an actual Iterator. For example slices `&[T]`.
+    #[inline]
+    fn intersect<U>(self, other: U) -> Intersect<Self, U::IntoIter>
+        where Self: Sized,
+              Self::Item: hash::Hash + Eq,
+              U: IntoIterator<Item = Self::Item>
+    {
+        Intersect { a: self, b: other.into_iter(), items: HashSet::new() }
+    }
 }
 
 
@@ -78,46 +95,32 @@ pub trait LinqIteratorExtensions : Iterator {
 impl<T> LinqIteratorExtensions for T where T: Iterator { }
 
 
-//// Step 3: Define the structs required by our adapters, if any: these are only
-//// required if the adapters need to manage state.
-//pub struct InRange<I>
-//    where I: Iterator
-//{
-//    iter: I,
-//    r: Range<I::Item>,
-//    have_skipped: bool
-//}
-//
-///// Step 4: The InRange struct is itself an iterator (it returns multiple items) so we need
-///// to `impl Iterator` for it.
-//impl<I> Iterator for InRange<I>
-//    where I:Iterator,
-//          I::Item: PartialOrd
-//{
-//    type Item = I::Item;
-//
-//    #[inline]
-//    fn next(&mut self) -> Option<I::Item> {
-//        if !self.have_skipped {
-//            self.have_skipped = true;
-//
-//            while let Some(x) = self.iter.next() {
-//                if x >= self.r.start {
-//                    return Some(x);
-//                }
-//            }
-//
-//            return None;
-//        }
-//
-//        if let Some(n) = self.iter.next() {
-//            if n < self.r.end {
-//                return Some(n);
-//            }
-//        }
-//        None
-//    }
-//}
+// Step 3: Define the structs required by our adapters, if any: these are only required if the
+// adapters need to manage state. n.b. Step 3 implies you need step 4 as well.
+pub struct Intersect<A, B>
+    where A: Iterator,
+          B: Iterator
+{
+    a: A,
+    b: B,
+    items: HashSet<A::Item>
+}
+
+// Step 4: Implement Iterator functionality for our structs.
+impl<A, B> Iterator for Intersect<A, B>
+    where A: Iterator,
+          B: Iterator<Item = A::Item>,
+          A::Item: Eq + hash::Hash
+{
+    type Item = A::Item;
+
+    #[inline]
+    fn next(&mut self) -> Option<A::Item> {
+        //self.items = self.b.collect();
+        //self.b
+        None
+    }
+}
 
 #[cfg(test)]
 mod tests {
