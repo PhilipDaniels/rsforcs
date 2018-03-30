@@ -14,7 +14,7 @@ of `str`, it consists of a heap-allocated `Vec<u8>` which can grow or shrink in 
 
 Strings and their corresponding slices are laid out in memory like this:
 
- 
+![Rust String/str Memory Layout](./string_memory_layout.png) 
 
 #### Major Points
 

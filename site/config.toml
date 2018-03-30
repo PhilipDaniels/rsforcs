@@ -13,6 +13,7 @@ highlight_theme = "cheerfully-light"
 # Which overall site theme to use (from the themes directory).
 # This site has its own custom theme.
 theme = "rsforcs-theme"
+ignored_content = ["*.graphml"]
 
 [extra]
 # Put all your custom variables here
