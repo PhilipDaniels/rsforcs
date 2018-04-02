@@ -89,10 +89,11 @@ $code-fonts: Consolas, "Source Code Pro", "Bitstream Vera Sans Mono", "Ubuntu Mo
     }
 
     table {
-      margin: 8px auto; //0 auto;
+      margin: 18px 0px 18px 0px;
       border-collapse: collapse;
       border-color: #cccccc;
-      //margin-bottom: 20px;
+      //margin-left: 0px;
+      width: 100%;
 
       td {
         padding: 3px 10px;
