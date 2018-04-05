@@ -22,7 +22,7 @@ C# programmers could always represent the presence or absence of a reference typ
 types are allocated on the heap, so a null pointer is easy to add to the type system. There was no way
 of reliably(*) indicating presence/absence for value types, so we have the third leg:
 
-* [Nullable<T>](https://msdn.microsoft.com/en-us/library/b3h38hb0(v=vs.110).aspx) was
+* [System.Nullable&lt;T&gt;](https://msdn.microsoft.com/en-us/library/b3h38hb0(v=vs.110).aspx) was
 introduced in .Net 2.0. It basically wraps a value type and adds a boolean flag to say whether the value is present or
 not.
 
@@ -121,16 +121,15 @@ Chaining | [or_else&lt;F&gt;(self, f: F) -> Option&lt;T&gt;](https://doc.rust-la
 Get reference | [as_ref(&self) -> Option&lt;&T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.as_ref) | Converts from `Option<T>` to `Option<&T>`
 Get reference | [as_mut(&mut self) -> Option&lt;&mut T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.as_mut) | Converts from `Option<T>` to `Option<&mut T>`
 |&nbsp;|&nbsp;|&nbsp;|
-Convert to Result&lt;T, E&gt; | [ok_or&lt;E&gt;(self, err: E) -> Result&lt;T, E&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or) | Create a `Result` from this option. If `Some(v)` return `Ok(v)`, else return `Err(err)` (where err is a value)
-Convert to Result&lt;T, E&gt; | [ok_or_else&lt;E, F&gt;(self, err: F) -> Result&lt;T, E&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or_else) | Create a `Result` from this option. If `Some(v)` return `Ok(v)`, else return `Err(err())` (where err is a function)
+Convert to Result | [ok_or&lt;E&gt;(self, err: E) -> Result&lt;T, E&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or) | Create a `Result` from this option. If `Some(v)` return `Ok(v)`, else return `Err(err)` (where err is a value)
+Convert to Result | [ok_or_else&lt;E, F&gt;(self, err: F) -> Result&lt;T, E&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or_else) | Create a `Result` from this option. If `Some(v)` return `Ok(v)`, else return `Err(err())` (where err is a function)
 |&nbsp;|&nbsp;|&nbsp;|
 Set the value | [get_or_insert(&mut self, v: T) -> &mut T](https://doc.rust-lang.org/std/option/enum.Option.html#method.get_or_insert) | If `None`, set the value to `v`, else leave it alone. Then return a mutable reference to the value. 
 Set the value | [get_or_insert_with&lt;F&gt;(&mut self, f: F) -> &mut T](https://doc.rust-lang.org/std/option/enum.Option.html#method.get_or_insert_with) | If `None`, set the value to the result of calling `f`, else leave it alone. Then return a mutable reference to the value.
-Clone | [cloned(self) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned) |
-Clone | []() | If T is cloneable
+Clone | [cloned(self) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned) | If `T` is cloneable, convert an `Option<&T>` to an `Option<T>` by cloning the contents of the option.
+Clone | [cloned(self) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned-1) | If `T` is cloneable, convert an `Option<&mut T>` to an `Option<T>` by cloning the contents of the option.
 |&nbsp;|&nbsp;|&nbsp;|
-Comparisons | []() | PartialOrd, Ord, Eq, PartialEq
-
+Comparisons | [PartialOrd](https://doc.rust-lang.org/std/option/enum.Option.html#impl-PartialOrd%3COption%3CT%3E%3E), [Ord](https://doc.rust-lang.org/std/option/enum.Option.html#impl-Ord), [Eq](https://doc.rust-lang.org/std/option/enum.Option.html#impl-Eq), [PartialEq](https://doc.rust-lang.org/std/option/enum.Option.html#impl-PartialEq%3COption%3CT%3E%3E) | `Option<T>` supports the standard Rust relational operators *if* the `T` supports them |
 
 
 **n.b.** Function signatures are incomplete, bounds not shown etc. Click through for the full details.
