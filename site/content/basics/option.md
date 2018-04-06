@@ -94,37 +94,38 @@ As you can see, creating options is easy - just write `Some(the_value)`.
  
 ## So you have an Option<T>, what can you do with it?
 
-What | Method | Description |
----- | ------ | ----------- |
-Check | [is_some(&self) -> bool](https://doc.rust-lang.org/std/option/enum.Option.html#method.is_some) | Check if the option has a value, i.e. it's a `Some`
-Check | [is_none(&self) -> bool](https://doc.rust-lang.org/std/option/enum.Option.html#method.is_none) | Check if the option doesn't have a value, i.e. it's a `None` <thead><th></th><th></th><th></th></thead>
-Get the value | [unwrap(self) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap) | Returns the value - moves it out of the option. Panics if the option is a `None`.
-Get the value | [expect(self, msg: &str) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.expect) | Like `unwrap`, but allows you to specify a custom panic message.
-Get the value | [unwrap_or(self, def: T) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or) | Like `unwrap`, but you can specify a default value to be returned if the option is a `None` instead of panicking
-Get the value | [unwrap_or_else&lt;F&gt;(self, f: F) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_else) | Like `unwrap`, but you can specify a function to call if the option is a `None` instead of panicking
-Get the value | [unwrap_or_default(self) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_default) | Like `unwrap`, but returns the [Default](https://doc.rust-lang.org/std/default/trait.Default.html#tymethod.default) value if the option is a `None` instead of panicking
-Get the value | [iter(&self) -> Iter&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.iter) | Get an iterator over the value; returns a max of 1 item
-Get the value | [iter_mut(&mut self) -> IterMut&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.iter_mut) | Get a mutable iterator over the value; returns a max of 1 item
-Get the value | [take(&mut self) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.take) | Take the value out of the option, leaving a None in its place. <thead><th></th><th></th><th></th></thead>
-Boolean logic | [or(self, optb: Option&lt;T&gt;) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.or) | Logical "OR" - return first option, or second if the first is `None`
-Boolean logic | [and&lt;U&gt;(self, optb: Option&lt;U&gt;) -> Option&lt;U&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.and) | Logical "AND" - return `None` if the first is `None`, else return the second option <thead><th></th><th></th><th></th></thead>
-Transform the value | [map&lt;U, F&gt;(self, f: F) -> Option&lt;U&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.map) | If `Some`, apply `f` to it and return the result, else return `None`
-Transform the value | [map_or&lt;U, F&gt;(self, default: U, f: F) -> U](https://doc.rust-lang.org/std/option/enum.Option.html#method.map_or) | If `Some`, apply `f` to it and return the result, else return the `default` value
-Transform the value | [map_or_else&lt;U, D, F&gt;(self, default: D, f: F) -> U](https://doc.rust-lang.org/std/option/enum.Option.html#method.map_or_else) | If `Some`, apply `f` to it and return the result, else return the result of calling the function `default` <thead><th></th><th></th><th></th></thead>
-Chaining | [and_then&lt;U, F&gt;(self, f: F) -> Option&lt;U&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.and_then) | If `None`, returns `None`, else returns the result of calling `f` with the value 
-Chaining | [or_else&lt;F&gt;(self, f: F) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.or_else) | If `Some` returns the value, else returns the result of calling the function `f` <thead><th></th><th></th><th></th></thead>
-Get reference | [as_ref(&self) -> Option&lt;&T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.as_ref) | Converts from `Option<T>` to `Option<&T>`
-Get reference | [as_mut(&mut self) -> Option&lt;&mut T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.as_mut) | Converts from `Option<T>` to `Option<&mut T>` <thead><th></th><th></th><th></th></thead>
-Convert to Result | [ok_or&lt;E&gt;(self, err: E) -> Result&lt;T, E&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or) | Create a `Result` from this option. If `Some(v)` return `Ok(v)`, else return `Err(err)` (where err is a value)
-Convert to Result | [ok_or_else&lt;E, F&gt;(self, err: F) -> Result&lt;T, E&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or_else) | Create a `Result` from this option. If `Some(v)` return `Ok(v)`, else return `Err(err())` (where err is a function) <thead><th></th><th></th><th></th></thead>
-Set the value | [get_or_insert(&mut self, v: T) -> &mut T](https://doc.rust-lang.org/std/option/enum.Option.html#method.get_or_insert) | If `None`, set the value to `v`, else leave it alone. Then return a mutable reference to the value. 
-Set the value | [get_or_insert_with&lt;F&gt;(&mut self, f: F) -> &mut T](https://doc.rust-lang.org/std/option/enum.Option.html#method.get_or_insert_with) | If `None`, set the value to the result of calling `f`, else leave it alone. Then return a mutable reference to the value. <thead><th></th><th></th><th></th></thead>
-Clone | [cloned(self) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned) | If `T` is cloneable, convert an `Option<&T>` to an `Option<T>` by cloning the contents of the option.
-Clone | [cloned(self) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned-1) | If `T` is cloneable, convert an `Option<&mut T>` to an `Option<T>` by cloning the contents of the option. <thead><th></th><th></th><th></th></thead>
-Comparisons | [PartialOrd](https://doc.rust-lang.org/std/option/enum.Option.html#impl-PartialOrd%3COption%3CT%3E%3E), [Ord](https://doc.rust-lang.org/std/option/enum.Option.html#impl-Ord), [Eq](https://doc.rust-lang.org/std/option/enum.Option.html#impl-Eq), [PartialEq](https://doc.rust-lang.org/std/option/enum.Option.html#impl-PartialEq%3COption%3CT%3E%3E) | `Option<T>` supports the standard Rust relational operators *if* the `T` supports them |
+Method | Description |
+------ | ----------- |
+<thead class="subhead"><th colspan="2">Get the value</th></thead>
+[is_some(&self) -> bool](https://doc.rust-lang.org/std/option/enum.Option.html#method.is_some) | Check if the option has a value, i.e. it's a `Some`
+[is_none(&self) -> bool](https://doc.rust-lang.org/std/option/enum.Option.html#method.is_none) | Check if the option doesn't have a value, i.e. it's a `None` <thead><th colspan="2">Get the value</th></thead>
+[unwrap(self) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap) | Returns the value - moves it out of the option. Panics if the option is a `None`.
+[expect(self, msg: &str) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.expect) | Like `unwrap`, but allows you to specify a custom panic message.
+[unwrap_or(self, def: T) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or) | Like `unwrap`, but you can specify a default value to be returned if the option is a `None` instead of panicking
+[unwrap_or_else&lt;F&gt;(self, f: F) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_else) | Like `unwrap`, but you can specify a function to call if the option is a `None` instead of panicking
+[unwrap_or_default(self) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_default) | Like `unwrap`, but returns the [Default](https://doc.rust-lang.org/std/default/trait.Default.html#tymethod.default) value if the option is a `None` instead of panicking
+[iter(&self) -> Iter&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.iter) | Get an iterator over the value; returns a max of 1 item
+[iter_mut(&mut self) -> IterMut&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.iter_mut) | Get a mutable iterator over the value; returns a max of 1 item
+[take(&mut self) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.take) | Take the value out of the option, leaving a None in its place. <thead><th colspan="2">Boolean combinators</th></thead>
+[or(self, optb: Option&lt;T&gt;) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.or) | Logical "OR" - return first option, or second if the first is `None`
+[and&lt;U&gt;(self, optb: Option&lt;U&gt;) -> Option&lt;U&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.and) | Logical "AND" - return `None` if the first is `None`, else return the second option <thead><th colspan="2">Transform the value</th></thead>
+[map&lt;U, F&gt;(self, f: F) -> Option&lt;U&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.map) | If `Some`, apply `f` to it and return the result, else return `None`
+[map_or&lt;U, F&gt;(self, default: U, f: F) -> U](https://doc.rust-lang.org/std/option/enum.Option.html#method.map_or) | If `Some`, apply `f` to it and return the result, else return the `default` value
+[map_or_else&lt;U, D, F&gt;(self, default: D, f: F) -> U](https://doc.rust-lang.org/std/option/enum.Option.html#method.map_or_else) | If `Some`, apply `f` to it and return the result, else return the result of calling the function `default` <thead><th colspan="2">Chaining</th></thead>
+[and_then&lt;U, F&gt;(self, f: F) -> Option&lt;U&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.and_then) | If `None`, returns `None`, else returns the result of calling `f` with the value 
+[or_else&lt;F&gt;(self, f: F) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.or_else) | If `Some` returns the value, else returns the result of calling the function `f` <thead><th colspan="2">Get reference</th></thead>
+[as_ref(&self) -> Option&lt;&T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.as_ref) | Converts from `Option<T>` to `Option<&T>`
+[as_mut(&mut self) -> Option&lt;&mut T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.as_mut) | Converts from `Option<T>` to `Option<&mut T>` <thead><th colspan="2">Convert to Result</th></thead>
+[ok_or&lt;E&gt;(self, err: E) -> Result&lt;T, E&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or) | Create a `Result` from this option. If `Some(v)` return `Ok(v)`, else return `Err(err)` (where err is a value)
+[ok_or_else&lt;E, F&gt;(self, err: F) -> Result&lt;T, E&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or_else) | Create a `Result` from this option. If `Some(v)` return `Ok(v)`, else return `Err(err())` (where err is a function) <thead><th colspan="2">Set the value</th></thead>
+[get_or_insert(&mut self, v: T) -> &mut T](https://doc.rust-lang.org/std/option/enum.Option.html#method.get_or_insert) | If `None`, set the value to `v`, else leave it alone. Then return a mutable reference to the value. 
+[get_or_insert_with&lt;F&gt;(&mut self, f: F) -> &mut T](https://doc.rust-lang.org/std/option/enum.Option.html#method.get_or_insert_with) | If `None`, set the value to the result of calling `f`, else leave it alone. Then return a mutable reference to the value. <thead><th colspan="2">Clone</th></thead>
+[cloned(self) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned) | If `T` is cloneable, convert an `Option<&T>` to an `Option<T>` by cloning the contents of the option.
+[cloned(self) -> Option&lt;T&gt;](https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned-1) | If `T` is cloneable, convert an `Option<&mut T>` to an `Option<T>` by cloning the contents of the option. <thead><th colspan="2">Comparisons</th></thead>
+[PartialOrd](https://doc.rust-lang.org/std/option/enum.Option.html#impl-PartialOrd%3COption%3CT%3E%3E), [Ord](https://doc.rust-lang.org/std/option/enum.Option.html#impl-Ord), [Eq](https://doc.rust-lang.org/std/option/enum.Option.html#impl-Eq), [PartialEq](https://doc.rust-lang.org/std/option/enum.Option.html#impl-PartialEq%3COption%3CT%3E%3E) | `Option<T>` supports the standard Rust relational operators *if* the `T` supports them |
 
 
-**n.b.** Function signatures are incomplete, bounds not shown etc. Click through for the full details.
+**n.b.** Function signatures may be abbreviated, for example generic bounds might be elided. Click through for the full details.
 
 * `unwrap` is used frequently, despite its possibility of panicking. For demo code, or cases where you know (based on
   the inputs) that the value can never actually be a `None`, it's fine.
