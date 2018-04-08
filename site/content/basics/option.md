@@ -45,9 +45,10 @@ pub enum Option<T> {
 }
 ```
 
-`Option` often shows up as the return type of a function. The other very frequently used type in that situation is the
-`Result<T, E>` type, which I always think of as "an option, but you can specify error information instead of just `None`".
-See the [Result&lt;T, E&gt;](./basics/result.md) page for more. When writing a function:
+`Option` often shows up as a member of a struct or the return type of a function. The other very frequently used type in
+the function situation is the `Result<T, E>` type, which I always think of as "an option, but you can specify error
+information instead of just `None`". See the [Result&lt;T, E&gt;](./basics/result.md) page for more. When writing a
+function:
 
 > If your function might return a value or not but **definitely won't** throw an error, use `Option<T>`
 >
@@ -95,8 +96,8 @@ As you can see, creating options is easy - just write `Some(the_value)`.
 ## So you have an Option<T>, what can you do with it?
 
 Method | Description |
------- | ----------- |
-<thead class="subhead"><th colspan="2">Get the value</th></thead>
+------ | ----------- | 
+<thead class="subhead"><th colspan="2">Get the value</th></thead> 
 [is_some(&self) -> bool](https://doc.rust-lang.org/std/option/enum.Option.html#method.is_some) | Check if the option has a value, i.e. it's a `Some`
 [is_none(&self) -> bool](https://doc.rust-lang.org/std/option/enum.Option.html#method.is_none) | Check if the option doesn't have a value, i.e. it's a `None` <thead class="subhead"><th colspan="2">Get the value</th></thead>
 [unwrap(self) -> T](https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap) | Returns the value - moves it out of the option. Panics if the option is a `None`.
@@ -157,4 +158,203 @@ https://blog.burntsushi.net/rust-error-handling/#composing-option-and-result
 ## See Also
 
 The big Option/Result method table.
+
+<table>
+    <thead><th>Option&lt;T&gt; Method</th><th>Result&lt;T, E&gt; Method</th><th>Description</th></thead>
+    <thead class="subhead"><th colspan="3">Testing</th></thead>
+    <tbody>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.is_some">is_some(&self) -> bool</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.is_ok">is_ok(&self) -> bool</a> </td>
+            <td> Return true if the value is <code>Some / Ok</code> </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.is_none">is_none(&self) -> bool</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.is_err">is_err(&self) -> bool</a> </td>
+            <td> Return true if the value is <code>None / Err</code> </td>
+        </tr>
+    </tbody>
+    <thead class="subhead"><th colspan="3">Getting the value</th></thead>
+    <tbody>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap">unwrap(self) -> T</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.unwrap">unwrap(self) -> T</a> </td>
+            <td> Returns the value - moves it out of the option. Panics if the option is a <code>None</code> </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.expect">expect(self, msg: &str) -> T</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.expect">expect(self, msg: &str) -> T</a> </td>
+            <td> Like <code>unwrap</code>, but allows you to specify a custom panic message. </td>
+        </tr>
+        <tr>
+            <td>  </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.unwrap_err">unwrap_err(self) -> E</a> </td>
+            <td> Returns the err - moves it out of the result. Panics if the result is an <code>Ok</code> </td>
+        </tr>
+        <tr>
+            <td>  </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.expect_err">expect_err(self, msg: &str) -> E</a> </td>
+            <td> Like <code>unwrap_err</code>, but allows you to specify a custom panic message. </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or">unwrap_or(self, def: T) -> T</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.unwrap_or">unwrap_or(self, optb: T) -> T</a> </td>
+            <td> Like <code>unwrap</code>, but you can specify a default value to be returned if the option is a <code>None</code> instead of panicking </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_else">unwrap_or_else&lt;F&gt;(self, f: F) -> T</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.unwrap_or_else">unwrap_or_else&lt;F&gt;(self, op: F) -> T</a> </td>
+            <td> Like <code>unwrap</code>, but you can specify a function to call if the option is a <code>None</code> instead of panicking </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_default">unwrap_or_default(self) -> T</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.unwrap_or_default">unwrap_or_default(self) -> T</a> </td>
+            <td> Like <code>unwrap</code>, but returns the <a href=https://doc.rust-lang.org/std/default/trait.Default.html#tymethod.default">Default</a> value if the option is a <code>None</code> instead of panicking </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.iter">iter(&self) -> Iter&lt;T&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.iter">iter(&self) -> Iter&lt;T&gt;</a> </td>
+            <td> Get an iterator over the value; returns a max of 1 item </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.iter_mut">iter_mut(&mut self) -> IterMut&lt;T&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.iter_mut">iter_mut(&mut self) -> IterMut&lt;T&gt;</a> </td>
+            <td> Get a mutable iterator over the value; returns a max of 1 item </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.take">take(&mut self) -> Option&lt;T&gt;</a> </td>
+            <td> </td>
+            <td>Take the value out of the option, leaving a <code>None</code> in its place.</td>
+        </tr>
+    </tbody>
+    <thead class="subhead"><th colspan="3">Getting a reference to the value</th></thead>
+    <tbody>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.as_ref">as_ref(&self) -> Option&lt;&T&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.as_ref">as_ref(&self) -> Result<&T, &E></a> </td>
+            <td> Converts from <code>Option<T></code> to <code>Option<&T></code> </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.as_mut">as_mut(&mut self) -> Option&lt;&mut T&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.as_mut">as_mut(&self) -> Result<&mut T, &mut E></a> </td>
+            <td> Converts from <code>Option<T></code> to <code>Option<&mut T></code> </td>
+        </tr>
+    </tbody>
+    <thead class="subhead"><th colspan="3">Transforming the value</th></thead>
+    <tbody>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map">map&lt;U, F&gt;(self, f: F) -> Option&lt;U&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.map">map<U, F>(self, op: F) -> Result&lt;U, E&gt; </a> </td>
+            <td> If <code>Some</code>, apply <code>f</code> to it and return the result, else return <code>None</code> </td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.map_err">map_err&lt;F, O&gt;(self, op: O) -> Result&lt;T, F&gt;  </a> </td>
+            <td> Apply the function <code>op</code> to any <code>Err</code> and return the result, pass <code>Ok</code> values through unchanged </td>
+        </tr>        
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map_or">map_or&lt;U, F&gt;(self, default: U, f: F) -> U</a> </td>
+            <td> </td>
+            <td> If <code>Some</code>, apply <code>f</code> to it and return the result, else return the <code>default</code> value </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map_or_else">map_or_else&lt;U, D, F&gt;(self, default: D, f: F) -> U</a> </td>
+            <td> </td>
+            <td> If <code>Some</code>, apply <code>f</code> to it and return the result, else return the result of calling the function <code>default</code> </td>
+        </tr>
+    </tbody>
+    <thead class="subhead"><th colspan="3">Cloning the value</th></thead>
+    <tbody>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#impl-Clone">clone(&self) -> Option&lt;T&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#impl-Clone">clone(&self) -> Result&lt;T, E&gt;</a> </td>
+            <td> If <code>T</code> (and <code>E</code> for Results) is cloneable, return a copy of the value </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#impl-Clone">clone_from(&mut self, source: &Self)</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#impl-Clone">clone_from(&mut self, source: &Self)</a> </td>
+            <td> Performs copy-assignment from <code>source</code> </td>
+        </tr>        
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned">cloned(self) -> Option&lt;T&gt;</a> </td>
+            <td> </td>
+            <td>If <code>T</code> is cloneable, convert an <code>Option<&T></code> to an <code>Option<T></code> by cloning the contents of the option.</td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned-1">cloned(self) -> Option&lt;T&gt;</a> </td>
+            <td> </td>
+            <td> If <code>T</code> is cloneable, convert an <code>Option<&mut T></code> to an <code>Option<T></code> by cloning the contents of the option.</td>
+        </tr>
+    </tbody>
+    <thead class="subhead"><th colspan="3">Combining two Options or Results logically into a new Option or Result</th></thead>
+    <tbody>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.or">or(self, optb: Option&lt;T&gt;) -> Option&lt;T&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.or">or(self, res: Result&lt;T, F&gt;) -> Result&lt;T, F&gt;</a> </td>
+            <td> Logical "OR" - If first is <code>Some</code> or <code>Ok</code> return it, else return the second </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.and">and&lt;U&gt;(self, optb: Option&lt;U&gt;) -> Option&lt;U&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.and">and&lt;U&gt;(self, res: Result&lt;U, E&gt;) -> Result&lt;U, E&gt;</a> </td>
+            <td> Logical "AND" - If first is <code>None</code> or <code>Err</code> return first, else return the second </td>
+        </tr>
+    </tbody>
+    <thead class="subhead"><th colspan="3">Selectively calling functions based on the value</th></thead>
+    <tbody>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.and_then">and_then&lt;U, F&gt;(self, f: F) -> Option&lt;U&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.and_then">and_then&lt;U, F&gt;(self, op: F) -> Result&lt;U, E&gt;</a> </td>
+            <td> If value is <code>Some</code> or <code>Ok</code> call the <code>f</code> on it, else pass the <code>None</code> or <code>Err</code> through unchanged </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.or_else">or_else&lt;F&gt;(self, f: F) -> Option&lt;T&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.or_else">or_else&lt;F, O&gt;(self, op: O) -> Result&lt;T, F&gt;</a> </td>
+            <td> If value is <code>Some</code> or <code>Ok</code> return it unchanged, else call <code>f</code> and return the result. For Results, <code>f</code> is passed the <code>Err</code> </td>
+        </tr>
+    </tbody>
+    <thead class="subhead"><th colspan="3">Converting Option &rArr; Result and Result &rArr; Option</th></thead>
+    <tbody>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or">ok_or&lt;E&gt;(self, err: E) -> Result&lt;T, E&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.ok">ok(self) -> Option&lt;T&gt;</a> </td>
+            <td> Create a <code>Result</code> from this option. If <code>Some(v)</code> return <code>Ok(v)</code>, else return <code>Err(err)</code> (where err is a value) </td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or_else">ok_or_else&lt;E, F&gt;(self, err: F) -> Result&lt;T, E&gt;</a> </td>
+            <td> <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.err">err(self) -> Option&lt;E&gt;</a> </td>
+            <td> Create a <code>Result</code> from this option. If <code>Some(v)</code> return <code>Ok(v)</code>, else return <code>Err(err())</code> (where err is a function) </td>
+        </tr>
+    </tbody>
+    <thead class="subhead"><th colspan="3">Setting the value</th></thead>
+    <tbody>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.get_or_insert">get_or_insert(&mut self, v: T) -> &mut T</a> </td>
+            <td> </td>
+            <td>If <code>None</code>, set the value to <code>v</code>, else leave it alone. Then return a mutable reference to the value.</td>
+        </tr>
+        <tr>
+            <td> <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.get_or_insert_with">get_or_insert_with&lt;F&gt;(&mut self, f: F) -> &mut T</a> </td>
+            <td> </td>
+            <td>If <code>None</code>, set the value to the result of calling <code>f</code>, else leave it alone. Then return a mutable reference to the value. </td>
+        </tr>
+    </tbody>
+    <thead class="subhead"><th colspan="3">Comparing</th></thead>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://doc.rust-lang.org/std/option/enum.Option.html#impl-PartialOrd%3COption%3CT%3E%3E">PartialOrd</a>,
+                <a href="https://doc.rust-lang.org/std/option/enum.Option.html#impl-Ord">Ord</a>,
+                <a href="https://doc.rust-lang.org/std/option/enum.Option.html#impl-PartialEq%3COption%3CT%3E%3E">PartialEq</a>,
+                <a href="https://doc.rust-lang.org/std/option/enum.Option.html#impl-Eq">Eq</a>
+            </td>
+            <td>
+                <a href="https://doc.rust-lang.org/std/result/enum.Result.html#impl-PartialOrd%3CResult%3CT%2C%20E%3E%3E">PartialOrd</a>,
+                <a href="https://doc.rust-lang.org/std/result/enum.Result.html#impl-Ord">Ord</a>,
+                <a href="https://doc.rust-lang.org/std/result/enum.Result.html#impl-PartialEq%3CResult%3CT%2C%20E%3E%3E">PartialEq</a>,
+                <a href="https://doc.rust-lang.org/std/result/enum.Result.html#impl-Eq">Eq</a>
+            </td>
+            <td> If <code>T</code> (and <code>E</code> for Results) supports the standard Rust relational operators then the <code>Option</code> or <code>Result</code> also supports them </td>
+        </tr>
+    </tbody>
+</table>
 
