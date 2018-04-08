@@ -20,6 +20,14 @@ $code-fonts: Consolas, "Source Code Pro", "Bitstream Vera Sans Mono", "Ubuntu Mo
     }
   }
 
+  h2 {
+    padding-top: 1em;
+  }
+
+  h1 + h2 {
+    padding-top: 0px;
+  }
+
   img {
     max-width: 100%;
     border: 1px solid #ccc;
@@ -106,6 +114,13 @@ $code-fonts: Consolas, "Source Code Pro", "Bitstream Vera Sans Mono", "Ubuntu Mo
           font-weight: bold;
           border: 1px solid #ccc;
           background-color: #EDEDED;
+
+        }
+
+        &.subhead {
+            font-style: italic;
+            text-align: left;
+            padding: 6px;
         }
       }
     }
@@ -124,6 +139,8 @@ $code-fonts: Consolas, "Source Code Pro", "Bitstream Vera Sans Mono", "Ubuntu Mo
     }
   }
 }
+
+
 
 @include min-screen(600px) {
   .page {
